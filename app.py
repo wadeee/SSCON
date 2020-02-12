@@ -38,7 +38,7 @@ def add():
         'WantedBy=multi-user.target\n'
     ]
 
-    with open('C:/temp' + ssconfigfilepath, 'w') as ssconfigfile, open('C:/temp' + ssserviceconfigfilepath, 'w') as ssserviceconfigfile:
+    with open(ssconfigfilepath, 'w') as ssconfigfile, open(ssserviceconfigfilepath, 'w') as ssserviceconfigfile:
         ssconfigfile.writelines(json.dumps(ssconfig))
         ssserviceconfigfile.writelines(ssserviceconfig)
 
