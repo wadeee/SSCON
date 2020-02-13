@@ -29,8 +29,15 @@
 
                         <v-text-field
                                 v-model="formData.password"
+                                :rules="passwordRules"
                                 label="Password"
                                 required
+                        ></v-text-field>
+
+                        <v-text-field
+                                v-model="formData.encryption"
+                                label="Encryption"
+                                disabled
                         ></v-text-field>
 
                         <v-btn
@@ -40,10 +47,6 @@
                         >
                             ADD SHADOWSOCKS
                         </v-btn>
-
-                        <v-text-field
-                                v-model="result"
-                        ></v-text-field>
                     </v-form>
                 </v-row>
             </v-col>
@@ -66,12 +69,16 @@
             formData: {
                 port: '',
                 password: 'laochenniubi',
+                encryption: 'aes-256-cfb',
             },
             portRules: [
                 v => !!v || 'Port is required',
-                v => v && 0 <= v && v <= 65535 || 'Out of range'
+                v => v && 0 <= v && v <= 65535 || 'Out of range',
             ],
-            result: ''
+            passwordRules: [
+                v => !!v || 'Password is required',
+            ],
+            result: '',
         }),
 
 
@@ -82,7 +89,7 @@
             submit() {
                 if (this.$refs.form.validate()) {
                     axios.post('/add', this.$data.formData).then((response) => {
-                        this.$data.result = response
+                        console.log(response)
                     })
                 }
             }
