@@ -20,6 +20,13 @@
                             ref="form"
                             @submit.prevent="submit"
                     >
+
+                        <v-text-field
+                                v-model="formData.IP"
+                                label="IP"
+                                disabled
+                        ></v-text-field>
+
                         <v-text-field
                                 v-model="formData.port"
                                 :rules="portRules"
@@ -67,6 +74,7 @@
         }),
         data: () => ({
             formData: {
+                IP:'23.105.207.48',
                 port: '',
                 password: 'laochenniubi',
                 encryption: 'aes-256-cfb',
