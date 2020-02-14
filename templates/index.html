@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <title>TEMP</title>
 </head>
@@ -13,50 +14,58 @@
 <div id="app">
     <v-app id="inspire">
         <v-container fluid>
-            <v-col cols="12" md="4">
-                <v-row>
+            <v-row>
+                <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                        lg="3"
+                >
+                    <v-card max-width="250">
+                        <v-card-text>
+                            <v-form
+                                    ref="form"
+                                    @submit.prevent="submit"
+                            >
 
-                    <v-form
-                            ref="form"
-                            @submit.prevent="submit"
-                    >
+                                <v-text-field
+                                        v-model="formData.IP"
+                                        label="IP"
+                                        disabled
+                                ></v-text-field>
 
-                        <v-text-field
-                                v-model="formData.IP"
-                                label="IP"
-                                disabled
-                        ></v-text-field>
+                                <v-text-field
+                                        v-model="formData.port"
+                                        :rules="portRules"
+                                        label="Port"
+                                        required
+                                ></v-text-field>
 
-                        <v-text-field
-                                v-model="formData.port"
-                                :rules="portRules"
-                                label="Port"
-                                required
-                        ></v-text-field>
+                                <v-text-field
+                                        v-model="formData.password"
+                                        :rules="passwordRules"
+                                        label="Password"
+                                        required
+                                ></v-text-field>
 
-                        <v-text-field
-                                v-model="formData.password"
-                                :rules="passwordRules"
-                                label="Password"
-                                required
-                        ></v-text-field>
+                                <v-text-field
+                                        v-model="formData.encryption"
+                                        label="Encryption"
+                                        disabled
+                                ></v-text-field>
 
-                        <v-text-field
-                                v-model="formData.encryption"
-                                label="Encryption"
-                                disabled
-                        ></v-text-field>
-
-                        <v-btn
-                                color="primary"
-                                class="mr-6"
-                                type="submit"
-                        >
-                            ADD SHADOWSOCKS
-                        </v-btn>
-                    </v-form>
-                </v-row>
-            </v-col>
+                                <v-btn
+                                        color="primary"
+                                        class="mr-6"
+                                        type="submit"
+                                >
+                                    ADD SHADOWSOCKS
+                                </v-btn>
+                            </v-form>
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
         </v-container>
     </v-app>
 </div>
@@ -74,7 +83,7 @@
         }),
         data: () => ({
             formData: {
-                IP:'23.105.207.48',
+                IP: '23.105.207.48',
                 port: '',
                 password: 'laochenniubi',
                 encryption: 'aes-256-cfb',
