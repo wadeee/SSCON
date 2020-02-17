@@ -100,9 +100,6 @@
 
 
         methods: {
-            reset() {
-                this.$refs.form.reset();
-            },
             submit() {
                 if (this.$refs.form.validate()) {
                     axios.post('/add', this.$data.formData).then((response) => {
