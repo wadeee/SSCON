@@ -35,23 +35,6 @@ def ssinfo():
                 'status': activestatus,
             })
 
-            # ssconfiglist = [
-            #     {
-            #         'IP': '23.105.207.48',
-            #         'port': 'test',
-            #         'password': 'test',
-            #         'encryption': 'test',
-            #         'status': 'active',
-            #     },
-            #     {
-            #         'IP': '23.105.207.48',
-            #         'port': 'test',
-            #         'password': 'test',
-            #         'encryption': 'test',
-            #         'status': 'inactive',
-            #     },
-            # ]
-
     return json.dumps(ssconfiglist)
 
 
@@ -90,10 +73,11 @@ def addss():
 
 @app.route('/removess', methods=['post'])
 def removess():
-    os.system('systemctl disable shadowsocks-' + request.json.get('port'))
-    os.system('systemctl stop shadowsocks-' + request.json.get('port'))
-    os.system('rm /etc/shadowsocks-' + request.json.get('port') + '.json')
-    os.system('rm /etc/systemd/system/shadowsocks-' + request.json.get('port') + '.service')
+    port = str(request.json.get('port'))
+    os.system('systemctl disable shadowsocks-' + port)
+    os.system('systemctl stop shadowsocks-' + port)
+    os.system('rm /etc/shadowsocks-' + port + '.json')
+    os.system('rm /etc/systemd/system/shadowsocks-' + port + '.service')
 
     return ""
 
