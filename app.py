@@ -21,34 +21,36 @@ def ssinfo():
     ssconfiglist = []
     ssservices = os.popen('ls /etc/systemd/system | grep shadowsocks-').read().split('\n')
     for ssservice in ssservices:
-        servicestatus = os.popen('systemctl status ' + ssservice).read()
-        with open('/etc/shadowsocks-' + re.search('(?<=shadowsocks-).*(?=\.service)', ssservice) + '.json', 'r') as f:
-            ssconfig = json.load(f)
-        activestatus = re.search('(?<=Active: )(active|inactive)', servicestatus).group()
-        ssconfiglist.append({
-            'IP': '23.105.207.48',
-            'port': ssconfig['server_port'],
-            'password': ssconfig['password'],
-            'encryption': ssconfig['method'],
-            'status': activestatus,
-        })
+        if re.search('(?<=shadowsocks-).*(?=\.service)', ssservice):
+            servicestatus = os.popen('systemctl status ' + ssservice).read()
+            with open('/etc/shadowsocks-' + re.search('(?<=shadowsocks-).*(?=\.service)', ssservice).group() + '.json',
+                      'r') as f:
+                ssconfig = json.load(f)
+            activestatus = re.search('(?<=Active: )(active|inactive)', servicestatus).group()
+            ssconfiglist.append({
+                'IP': '23.105.207.48',
+                'port': ssconfig['server_port'],
+                'password': ssconfig['password'],
+                'encryption': ssconfig['method'],
+                'status': activestatus,
+            })
 
-    # ssconfiglist = [
-    #     {
-    #         'IP': '23.105.207.48',
-    #         'port': 'test',
-    #         'password': 'test',
-    #         'encryption': 'test',
-    #         'status': 'active',
-    #     },
-    #     {
-    #         'IP': '23.105.207.48',
-    #         'port': 'test',
-    #         'password': 'test',
-    #         'encryption': 'test',
-    #         'status': 'inactive',
-    #     },
-    # ]
+            # ssconfiglist = [
+            #     {
+            #         'IP': '23.105.207.48',
+            #         'port': 'test',
+            #         'password': 'test',
+            #         'encryption': 'test',
+            #         'status': 'active',
+            #     },
+            #     {
+            #         'IP': '23.105.207.48',
+            #         'port': 'test',
+            #         'password': 'test',
+            #         'encryption': 'test',
+            #         'status': 'inactive',
+            #     },
+            # ]
 
     return json.dumps(ssconfiglist)
 
