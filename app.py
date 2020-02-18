@@ -18,43 +18,43 @@ def index():
 
 @app.route('/ssinfo')
 def ssinfo():
-    # ssconfiglist = []
-    # ssservices = os.popen('ls /etc/systemd/system | grep shadowsocks-').read().split('\n')
-    # for ssservice in ssservices:
-    #     servicestatus = os.popen('systemctl status ' + ssservice).read()
-    #     with open('/etc/shadowsocks-' + re.search('(?<=shadowsocks-).*(?=\.service)', ssservice) + '.json', 'r') as f:
-    #         ssconfig = json.load(f)
-    #     activestatus = re.search('(?<=Active: )(active|inactive)', servicestatus).group()
-    #     ssconfiglist.append({
-    #         'IP': '23.105.207.48',
-    #         'port': ssconfig['server_port'],
-    #         'password': ssconfig['password'],
-    #         'encryption': ssconfig['method'],
-    #         'status': activestatus,
-    #     })
+    ssconfiglist = []
+    ssservices = os.popen('ls /etc/systemd/system | grep shadowsocks-').read().split('\n')
+    for ssservice in ssservices:
+        servicestatus = os.popen('systemctl status ' + ssservice).read()
+        with open('/etc/shadowsocks-' + re.search('(?<=shadowsocks-).*(?=\.service)', ssservice) + '.json', 'r') as f:
+            ssconfig = json.load(f)
+        activestatus = re.search('(?<=Active: )(active|inactive)', servicestatus).group()
+        ssconfiglist.append({
+            'IP': '23.105.207.48',
+            'port': ssconfig['server_port'],
+            'password': ssconfig['password'],
+            'encryption': ssconfig['method'],
+            'status': activestatus,
+        })
 
-    ssconfiglist = [
-        {
-            'IP': '23.105.207.48',
-            'port': 'test',
-            'password': 'test',
-            'encryption': 'test',
-            'status': 'active',
-        },
-        {
-            'IP': '23.105.207.48',
-            'port': 'test',
-            'password': 'test',
-            'encryption': 'test',
-            'status': 'inactive',
-        },
-    ]
+    # ssconfiglist = [
+    #     {
+    #         'IP': '23.105.207.48',
+    #         'port': 'test',
+    #         'password': 'test',
+    #         'encryption': 'test',
+    #         'status': 'active',
+    #     },
+    #     {
+    #         'IP': '23.105.207.48',
+    #         'port': 'test',
+    #         'password': 'test',
+    #         'encryption': 'test',
+    #         'status': 'inactive',
+    #     },
+    # ]
 
     return json.dumps(ssconfiglist)
 
 
-@app.route('/add', methods=['post'])
-def add():
+@app.route('/addss', methods=['post'])
+def addss():
     port = request.json.get('port')
     password = request.json.get('password')
     ssconfigfilepath = '/etc/shadowsocks-' + port + '.json'
@@ -83,6 +83,16 @@ def add():
 
     os.system('systemctl enable shadowsocks-' + port)
     os.system('systemctl start shadowsocks-' + port)
+
+    return ""
+
+
+@app.route('/removess', methods=['post'])
+def removess():
+    os.system('systemctl disable shadowsocks-' + request.json.get('port'))
+    os.system('systemctl stop shadowsocks-' + request.json.get('port'))
+    os.system('rm /etc/shadowsocks-' + request.json.get('port') + '.json')
+    os.system('rm /etc/systemd/system/shadowsocks-' + request.json.get('port') + '.service')
 
     return ""
 
