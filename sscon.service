@@ -1,0 +1,8 @@
+[Unit]
+Description=sscon
+[Service]
+TimeoutStartSec=0
+WorkingDirectory=/root/sscon
+ExecStart=/root/.pyenv/shims/gunicorn -b localhost:5001 app:app
+[Install]
+WantedBy=multi-user.target
