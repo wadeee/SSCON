@@ -9,4 +9,4 @@ pip install gunicorn
 echo y | cp ./sscon.service /etc/systemd/system/
 systemctl systemctl daemon-reload
 systemctl enable sscon
-ssytemctl start sscon
+systemctl start sscon
