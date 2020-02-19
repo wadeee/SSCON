@@ -56,7 +56,7 @@ def addss():
         'Description=Shadowsocks-' + port + '\n',
         '[Service]\n',
         'TimeoutStartSec=0\n',
-        'ExecStart=/usr/bin/ssserver -c ' + ssconfigfilepath + '\n',
+        'ExecStart=/root/.pyenv/shims/ssserver -c ' + ssconfigfilepath + '\n',
         '[Install]\n',
         'WantedBy=multi-user.target\n'
     ]
