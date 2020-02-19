@@ -26,7 +26,7 @@ def ssinfo():
             with open('/etc/shadowsocks-' + re.search('(?<=shadowsocks-).*(?=\.service)', ssservice).group() + '.json',
                       'r') as f:
                 ssconfig = json.load(f)
-            activestatus = re.search('(?<=Active: )(active|inactive)', servicestatus).group()
+            activestatus = re.search('(?<=Active: )(active|inactive|failed)', servicestatus).group()
             ssconfiglist.append({
                 'IP': '23.105.207.48',
                 'port': ssconfig['server_port'],
