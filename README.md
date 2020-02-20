@@ -11,6 +11,13 @@ Shadowsocks service management client
 + Environment 
 
     git, nginx and python installed
+    
++ Download the source
+
+    ```shell script
+    git clone https://github.com/wadeee/sscon.git ~/sscon
+    cd ~/sscon
+    ```
 
 + Run inst.sh
 
@@ -23,4 +30,3 @@ Shadowsocks service management client
     ```text
     http://localhost/
     ```
-    
