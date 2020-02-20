@@ -13,4 +13,4 @@ systemctl start sscon
 
 ## add config to nginx ##
 echo y | cp ./sscon.nginx.http.conf /etc/nginx/conf.d/
-systemctl restart nginx
+systemctl restart nginx ## please make sure nginx installed ##
