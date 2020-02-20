@@ -8,10 +8,10 @@ Shadowsocks service management client
 
     CentOS 7
 
-+ Environment 
++ Environment
 
     git, nginx and python installed
-    
+
 + Download the source
 
     ```shell script
@@ -24,7 +24,7 @@ Shadowsocks service management client
     ```shell script
     ./inst.sh
     ```
-  
+
 + Check the page
 
     ```text
