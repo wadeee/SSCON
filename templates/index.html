@@ -105,13 +105,19 @@
                                         disabled
                                 ></v-text-field>
 
-                                <v-btn
-                                        color="error"
-                                        class="mr-6"
-                                        type="submit"
+                                <v-badge
+                                        bordered
+                                        :color="ssItem['status'] === 'active' ? green : grey"
+                                        overlap
+                                        dot
                                 >
-                                    REMOVE SHADOWSOCKS
-                                </v-btn>
+                                    <v-btn
+                                            color="error"
+                                            type="submit"
+                                    >
+                                        REMOVE SHADOWSOCKS
+                                    </v-btn>
+                                </v-badge>
                             </v-form>
                         </v-card-text>
                     </v-card>
