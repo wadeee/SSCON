@@ -30,3 +30,9 @@ Shadowsocks service management client
     ```text
     http://localhost/
     ```
+
+
+## Tech
+
++ [Python](https://poi.apache.org/)
+
