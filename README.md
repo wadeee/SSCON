@@ -34,5 +34,5 @@ Shadowsocks service management client
 
 ## Tech
 
-+ [Python](https://poi.apache.org/)
++ [Python](https://www.python.org/)
 
