@@ -3,10 +3,23 @@ from jinja2 import Environment, select_autoescape, FileSystemLoader
 import os
 import json
 import re
+import socket
+
+
+def get_host_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        ip_now = s.getsockname()[0]
+    finally:
+        s.close()
+    return ip_now
+
 
 app = Flask(__name__)
 loader = FileSystemLoader('templates')
 env = Environment(loader=loader, autoescape=select_autoescape(['html']))
+ip = get_host_ip()
 
 
 @app.route('/')
@@ -28,7 +41,7 @@ def ssinfo():
                 ssconfig = json.load(f)
             activestatus = re.search('(?<=Active: )(active|inactive|failed)', servicestatus).group()
             ssconfiglist.append({
-                'IP': '23.105.207.48',
+                'IP': ip,
                 'port': ssconfig['server_port'],
                 'password': ssconfig['password'],
                 'encryption': ssconfig['method'],
