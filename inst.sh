@@ -1,9 +1,9 @@
 #!/bin/sh
 
 ## pip install ##
-pip3 install flask
-pip3 install jinja2
-pip3 install gunicorn
+python3 -m pip install flask
+python3 -m pip install jinja2
+python3 -m pip install gunicorn
 
 ## add sscon to service ##
 echo y | cp ./sscon.service /etc/systemd/system/
